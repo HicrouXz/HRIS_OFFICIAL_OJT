@@ -11,7 +11,7 @@ if (!isset($_SESSION['role_id']) || $_SESSION['role_id'] != 1) {
 }
 
 $user_id = $_SESSION['employee_id'];
-$api_base_url = "http://localhost/hris_official/api"; 
+$api_base_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) . "/api"; 
 
 // --- 1. DELETE ATTENDANCE RECORD (Transactional) ---
 if (isset($_GET['delete_id'])) {
@@ -757,3 +757,4 @@ if (isset($_GET['edit_id'])) {
     </script>
 </body>
 </html>
+

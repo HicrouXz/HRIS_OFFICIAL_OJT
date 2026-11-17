@@ -91,10 +91,13 @@ try {
 
         $pdo->commit();
         echo json_encode(["success" => "OT status updated and synced."]);
-    } catch (Exception $e) {
-        if ($pdo->inTransaction()) $pdo->rollBack();
-        http_response_code(500);
-        echo json_encode(["error" => $e->getMessage()]);
+    } else {
+        http_response_code(400);
+        echo json_encode(["error" => "Invalid action specified."]);
     }
+} catch (Exception $e) {
+    if ($pdo && $pdo->inTransaction()) $pdo->rollBack();
+    http_response_code(500);
+    echo json_encode(["error" => $e->getMessage()]);
 }
-?>
+?>

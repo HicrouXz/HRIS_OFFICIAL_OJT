@@ -17,7 +17,7 @@ if ($_SESSION['role_id'] == 1) { header("Location: super_admin_dashboard.php"); 
 
 verifyAccess([4]); 
 
-$api_base_url = "http://localhost/hris_official/api"; 
+$api_base_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://" . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) . "/api"; 
 
 $emp_id = $_SESSION['employee_id'];
 
@@ -513,3 +513,4 @@ try {
     </script>
 </body>
 </html>
+
